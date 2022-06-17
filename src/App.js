@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from 'react';
 import Login from './components/Login';
+import { Route } from 'react-router-dom';
 
 function App() {
   const [data, setData] = useState([]);
@@ -17,14 +18,12 @@ function App() {
   //     {data.map((data)=>(<h1>{data.name}: ${data.price}</h1>))}
 
   return (
-    <div className="App">
-      <header className="App-header">
-        Essential Oil Tracker
-      </header>
-      <Login/>
-      
-
-    </div>
+    <main>
+      <Route>
+        <Route exact path="/login" element={{}}/>
+      </Route>
+    </main>
+    
   );
 }
 

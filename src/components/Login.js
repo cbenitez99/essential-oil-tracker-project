@@ -1,9 +1,16 @@
-import {useState} from 'react'
+import {createContext, useState} from 'react';
+
+export const LoginContext = createContext(null);
 
 function Login() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
   return (
-    <div>Login</div>
+    <LoginContext.Provider value={{user, setUser}} >
+        <div>
+            
+        </div>
+    </LoginContext.Provider>
+    
   );
 };
 
