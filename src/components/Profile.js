@@ -1,8 +1,8 @@
-import React from 'react'
-import { LoginContext } from './Login'
+import {useContext} from 'react'
+import { UserContext } from '../App'
 
 function Profile() {
-    const {user} = useContext(LoginContext)
+    const {user} = useContext(UserContext)
 
 
 

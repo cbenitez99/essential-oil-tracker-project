@@ -1,13 +1,17 @@
 import './App.css';
-import {useState} from 'react';
-import Login, { LoginContext } from './components/Login';
+import {useState, createContext} from 'react';
+import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
+import Profile from './components/Profile';
 import { Route } from 'react-router-dom';
 
+export const UserContext = createContext(null);
 function App() {
-  const {user} = useContext(LoginContext)
-  const [data, setData] = useState([]);
+  // const {user} = useContext(LoginContext)
+  const [user, setUser] = useState({});
+
+  // const [data, setData] = useState([]);
 
   // const fetchData = () => {
   //   fetch("http://localhost:3000")
@@ -21,6 +25,7 @@ function App() {
   //     {data.map((data)=>(<h1>{data.name}: ${data.price}</h1>))}
 
   return (
+    <UserContext.Provider value={{user, setUser}} >
     <main>
       <Route>
         <Route exact path="/login" element={<Login/>}/>
@@ -29,6 +34,7 @@ function App() {
         <Route exact path={`/users/${user.id}`} element={<Profile/>}/>
       </Route>
     </main>
+    </UserContext.Provider>
     
   );
 }
