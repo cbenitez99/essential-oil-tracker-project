@@ -1,6 +1,8 @@
 import './App.css';
 import {useState} from 'react';
 import Login from './components/Login';
+import Signup from './components/Signup';
+import Home from './components/Home';
 import { Route } from 'react-router-dom';
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
   return (
     <main>
       <Route>
-        <Route exact path="/login" element={{}}/>
+        <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/signup" element={<Signup/>}/>
+        <Route exact path="/" element={<Home/>}/>
       </Route>
     </main>
     

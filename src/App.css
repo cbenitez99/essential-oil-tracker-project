@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.canvas {
+  background: #d1d8e0;
+  border: 1px solid #a5b1c2;
+  border-radius: 8px;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 4rem auto 2rem;
+  max-width: 500px;
+  padding: 40px 0;
+  text-align: center;
+}
