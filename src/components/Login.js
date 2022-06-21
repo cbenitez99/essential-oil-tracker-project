@@ -1,15 +1,12 @@
-import {createContext, useState} from 'react';
-
-export const LoginContext = createContext(null);
+import React from 'react'
 
 function Login() {
-    const [user, setUser] = useState({});
   return (
         <div>
             <h1>Login</h1>
-            <form className='canvas'>
+            {/* <form className='canvas'>
                 <input className='button purple'/>
-            </form>
+            </form> */}
         </div>
     
   );
