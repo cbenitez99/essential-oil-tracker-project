@@ -8,7 +8,7 @@ export const AppContext = createContext(null);
 
 
 function App() {
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState("");
 
   const [oils, setOils] = useState(null);
 
@@ -16,12 +16,13 @@ function App() {
     fetch("http://localhost:3000/oils")
     .then(resp => resp.json())
     .then(data => {
+      console.log(data)
       setOils(data)
     })
   }, [])
   
   return (
-    <AppContext.Provider value={{username, setUsername}}>
+    <AppContext.Provider value={{user, setUser}}>
       <Routes>
         <Route index path="/" element={<Home oils={oils} />}/>
         <Route path="/login" element={<Login />}/>
