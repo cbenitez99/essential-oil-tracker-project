@@ -1,12 +1,20 @@
-import React from 'react'
+import './css/login.css'
+import React, {useContext} from 'react'
+import { AppContext } from '../App';
 
 function Login() {
+    const {setUsername} = useContext(AppContext);
+
   return (
         <div>
             <h1>Login</h1>
-            {/* <form className='canvas'>
-                <input className='button purple'/>
-            </form> */}
+            <div class="canvas">
+            <input onChange={(event) => {
+            setUsername(event.target.value);
+            }}/>
+                <button class="button purple"><span>Login Button</span></button>
+                <button class="button purple"><span>Signup Button</span></button>
+            </div>
         </div>
     
   );
