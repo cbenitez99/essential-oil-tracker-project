@@ -10,13 +10,13 @@ export const AppContext = createContext(null);
 function App() {
   const [user, setUser] = useState("");
 
-  const [oils, setOils] = useState(null);
+  const [oils, setOils] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/oils")
+    fetch("/oils")
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
+      // console.log(data)
       setOils(data)
     })
   }, [])
