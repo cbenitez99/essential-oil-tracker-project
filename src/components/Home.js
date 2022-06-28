@@ -1,7 +1,19 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 
-function Home({oils}) {
+function Home() {
+
+  const [oils, setOils] = useState([]);
+
+  useEffect(() => {
+    fetch("/oils")
+    .then(resp => resp.json())
+    .then(data => {
+      // console.log(data)
+      setOils(data)
+    })
+  }, [])
+
   const handleClick = () => {
     console.log(oils)
   }
