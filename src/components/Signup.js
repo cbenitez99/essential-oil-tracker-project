@@ -1,56 +1,62 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../App';
+const Signup = () => {
+    const {setUser} = useContext(AppContext)
 
-function Signup() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+    let navigate = useNavigate()
+    const [formData, setFormData] = useState({ username: "", password: "" });
+    const [errors, setErrors] = useState([]);
 
-  let handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-      let res = await fetch("/users", {
-          method: "POST",
-          body: JSON.stringify({
-          name: name,
-          password: password
-          }),
-      });
-      let resJson = await res.json();
-      if (res.ok) {
-        setUser(resJson)
-          setName("");
-          setPassword("");
-          setMessage("User created successfully");
-      } else {
-          setMessage("Some error occured");
-      }
-      } catch (err) {
-      console.log(err);
-      }
-  };
+    const handleChange = (e) => {
+        setFormData(prev => {
+            return { ...prev, [e.target.name]: e.target.value }
+        });
+    };
 
-  return (
-      <div>
-          <form onSubmit={handleSubmit}>
-              <input
-              type="text"
-              value={name}
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              />
-              <input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              />
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let params = { ...formData }
+        fetch("/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        })
+        .then(resp => {
+            if(resp.ok){
+                resp.json()
+                .then((json) => {
+                    setUser(json)
+                    navigate(`/`)
+                })
+            } else {
+                resp.json()
+                .then((json) => {
+                    setErrors(json.errors)
+                });
+            }
+        });
+    };
 
-              <button type="submit">Signup</button>
-
-              <div>{message ? <p>{message}</p> : null}</div>
-          </form>
-      </div>
-  );
-}
-
+    return (
+        <div className='signup-page'>
+            <div className='signup-container'>
+                <h1>SignUp</h1>
+                <form className="signup-form" onSubmit={handleSubmit}>
+                    <label htmlFor="username">Create Username:</label>
+                    <input onChange={handleChange} type="text" name="username" value={formData.username}/>
+                    <label htmlFor="password">Create Password:</label>
+                    <input onChange={handleChange} type="password" name="password" value={formData.password}/>
+                    <br/>
+                    <button type="submit" className='signup-button'>Sign-Up</button>
+                    <p style={{color: "black"}}> {errors.join(", and ")}</p>
+                </form>
+                <p>Already have an account? <a href='/login'>Log-In</a></p>
+                <br/>
+            </div>
+        </div>
+    )
+};
 export default Signup;
