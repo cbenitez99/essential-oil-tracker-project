@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect, useContext} from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { AppContext } from '../App';
 
 function Home() {
-
+  const {setUser} = useContext(AppContext)
   const [oils, setOils] = useState([]);
+  let navigate = useNavigate()
+
 
   useEffect(() => {
     fetch("/oils")
     .then(resp => resp.json())
     .then(data => {
-      // console.log(data)
       setOils(data)
     })
   }, [])
@@ -25,7 +27,20 @@ function Home() {
         <Link to="/">Home</Link> |{" "}
         <Link to="profile">Profile</Link> |{" "}
         <Link to="login">Login</Link> |{" "}
-        <Link to="signup">Signup</Link> 
+        <Link to="signup">Signup</Link> |{" "}
+        <Link to="/" onClick={(e) => {
+            e.preventDefault()
+            fetch('/logout', {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json"
+              }
+              }).then(resp => {
+                setUser({})
+                navigate("/")
+              })
+            }}>Logout
+        </Link>
       </nav>
     </div>
   );
