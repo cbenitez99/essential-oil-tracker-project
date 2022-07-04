@@ -1,40 +1,68 @@
 import './css/login.css'
 import React, {useContext, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 
 function Login() {
-    const {setUser} = useContext(AppContext);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const {setUser} = useContext(AppContext)
+  
     const [formData, setFormData] = useState({
         username: "",
         password: ""
-    });
+    })
+    const [errors, setErrors] = useState([])
+    let navigate = useNavigate()
 
-    const handleSubmit = () => { 
-        fetch('/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ formData })
+    const handleChange = (e) => {
+        setFormData(prev => {
+            return { ...prev, [e.target.name]: e.target.value }
+        });
+    };   
+ 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let params = {
+          ...formData  
+        }
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
         })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        // setFormData({username: username, password: password}));
+        .then(resp => {
+            if(resp.ok){
+                resp.json()
+                .then((json) => {
+                    setUser(json)
+                    navigate(`/`)
+                })
+            } else {
+                resp.json()
+                .then((json) => {
+                    setErrors(json.errors)
+                })
+            }
+        })
     };
 
-  return (
+    return (
         <div>
             <h1>Login</h1>
-            <div className="canvas">
-                <form onSubmit={handleSubmit}>
-                    <input onChange={(e) => {setUsername(e.target.value)}}/>
-                    <input onChange={(e) => {setPassword(e.target.value)}}/>
-                    <button onClick={handleSubmit} className="button purple"><span>Login Button</span></button>
-                </form>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username:</label>
+                <input onChange={handleChange} type="text" name="username" value={formData.username}/>
+                <label htmlFor="password">Password:</label>
+                <input onChange={handleChange} type="password" name="password" value={formData.password}/>
+                <br/>
+                <button type="submit" >Log in</button>
+                <p style={{color: "black"}}>{errors}</p>
+            </form>
+            <p>Dont have an account? <a href='/signup'>Sign-Up</a></p>
+            <p><a href='/signup'>Forgot Password?</a></p>
         </div>
-    
-  );
+    )
 };
 
 export default Login;

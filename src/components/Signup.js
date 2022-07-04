@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
+
 const Signup = () => {
     const {setUser} = useContext(AppContext)
 
