@@ -19,31 +19,60 @@ function Home() {
   const handleClick = () => {
     console.log(oils)
   }
-  return (
-    <div>
-      <h1>Home: {user.username}</h1>
-      <button onClick={handleClick}>Log Data</button>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="profile">Profile</Link> |{" "}
-        <Link to="login">Login</Link> |{" "}
-        <Link to="signup">Signup</Link> |{" "}
-        <Link to="/" onClick={(e) => {
-            e.preventDefault()
-            fetch('/logout', {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json"
-              }
-              }).then(resp => {
-                setUser({})
-                navigate("/")
-              })
-            }}>Logout
-        </Link>
-      </nav>
-    </div>
-  );
+  if (user.id) {
+    return (
+      <div>
+        <h1>Welcome To Oil Tracker {user.username}</h1>
+        <button onClick={handleClick}>Log Data</button>
+        <nav>
+          {/* <Link to="/">Home</Link> |{" "} */}
+          <Link to="profile">Profile</Link>
+          {/* <Link to="login">Login</Link> |{" "} */}
+          {/* <Link to="signup">Signup</Link> |{" "} */}
+          <Link to="/" onClick={(e) => {
+              e.preventDefault()
+              fetch('/logout', {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                }
+                }).then(resp => {
+                  setUser({})
+                  navigate("/")
+                })
+              }}>Logout
+          </Link>
+        </nav>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>Welcome To Oil Tracker</h1>
+        <button onClick={handleClick}>Log Data</button>
+        <nav>
+          {/* <Link to="/">Home</Link> |{" "} */}
+          {/* <Link to="profile">Profile</Link> |{" "} */}
+          <Link to="login">Login</Link> |{" "}
+          <Link to="signup">Signup</Link> 
+          {/* <Link to="/" onClick={(e) => {
+              e.preventDefault()
+              fetch('/logout', {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json"
+                }
+                }).then(resp => {
+                  setUser({})
+                  navigate("/")
+                })
+              }}>Logout
+          </Link> */}
+        </nav>
+      </div>
+    );
+  }
+  
 }
 
 export default Home

@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import React, {useState, createContext} from "react";
+import NavBar from "./components/NavBar";
 export const AppContext = createContext(null);
 
 
@@ -14,6 +15,7 @@ function App() {
   
   return (
     <AppContext.Provider value={{user, setUser}}>
+      <NavBar/>
       <Routes>
         <Route index path="/" element={<Home />}/>
         <Route path="/login" element={<Login />}/>
