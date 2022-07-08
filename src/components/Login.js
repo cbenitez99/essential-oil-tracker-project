@@ -49,18 +49,18 @@ function Login() {
 
     return (
         <div>
-            <h1>Login</h1>
+        <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>
                 <input onChange={handleChange} type="text" name="username" value={formData.username}/>
                 <label htmlFor="password">Password:</label>
                 <input onChange={handleChange} type="password" name="password" value={formData.password}/>
+                <button type="submit">Login</button>
                 <br/>
-                <button type="submit" >Log in</button>
-                <p style={{color: "black"}}>{errors}</p>
+                <p style={{color: "red"}}> {errors.join(", and ")}</p>
+                <p>Dont have an account? <a href='/signup'>Sign-Up</a></p>
+                <p><a href='/signup'>Forgot Password?</a></p>
             </form>
-            <p>Dont have an account? <a href='/signup'>Sign-Up</a></p>
-            <p><a href='/signup'>Forgot Password?</a></p>
         </div>
     )
 };

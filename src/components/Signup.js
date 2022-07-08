@@ -42,21 +42,18 @@ const Signup = () => {
     };
 
     return (
-        <div className='signup-page'>
-            <div className='signup-container'>
-                <h1>SignUp</h1>
-                <form className="signup-form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Create Username:</label>
-                    <input onChange={handleChange} type="text" name="username" value={formData.username}/>
-                    <label htmlFor="password">Create Password:</label>
-                    <input onChange={handleChange} type="password" name="password" value={formData.password}/>
-                    <br/>
-                    <button type="submit" className='signup-button'>Sign-Up</button>
-                    <p style={{color: "black"}}> {errors.join(", and ")}</p>
-                </form>
-                <p>Already have an account? <a href='/login'>Log-In</a></p>
+        <div>
+        <h1>SignUp</h1>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Create Username:</label>
+                <input onChange={handleChange} type="text" name="username" value={formData.username}/>
+                <label htmlFor="password">Create Password:</label>
+                <input onChange={handleChange} type="password" name="password" value={formData.password}/>
+                <button type="submit">Sign-Up</button>
                 <br/>
-            </div>
+                <p style={{color: "red"}}> {errors.join(", and ")}</p>
+                <p>Already have an account? <a href='/login'>Log-In</a></p>
+            </form>
         </div>
     )
 };
