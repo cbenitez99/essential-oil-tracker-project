@@ -22,13 +22,10 @@ function Home() {
   if (user.id) {
     return (
       <div>
-        <h1>Welcome To Oil Tracker {user.username}</h1>
+        <h1>Welcome To Oil Tracker: <em>{user.username}</em></h1>
         <button onClick={handleClick}>Log Data</button>
         <nav>
-          {/* <Link to="/">Home</Link> |{" "} */}
-          <Link to="profile">Profile</Link>
-          {/* <Link to="login">Login</Link> |{" "} */}
-          {/* <Link to="signup">Signup</Link> |{" "} */}
+          <Link to="profile">Profile</Link> |{" "}
           <Link to="/" onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {
@@ -51,23 +48,8 @@ function Home() {
         <h1>Welcome To Oil Tracker</h1>
         <button onClick={handleClick}>Log Data</button>
         <nav>
-          {/* <Link to="/">Home</Link> |{" "} */}
-          {/* <Link to="profile">Profile</Link> |{" "} */}
           <Link to="login">Login</Link> |{" "}
           <Link to="signup">Signup</Link> 
-          {/* <Link to="/" onClick={(e) => {
-              e.preventDefault()
-              fetch('/logout', {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json"
-                }
-                }).then(resp => {
-                  setUser({})
-                  navigate("/")
-                })
-              }}>Logout
-          </Link> */}
         </nav>
       </div>
     );
