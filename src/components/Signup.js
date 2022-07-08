@@ -1,12 +1,14 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 
 const Signup = () => {
-    const {setUser} = useContext(AppContext)
+    const {setUser} = useContext(AppContext);
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+
     const [formData, setFormData] = useState({ username: "", password: "" });
+
     const [errors, setErrors] = useState([]);
 
     const handleChange = (e) => {
@@ -55,6 +57,6 @@ const Signup = () => {
                 <p>Already have an account? <a href='/login'>Log-In</a></p>
             </form>
         </div>
-    )
+    );
 };
 export default Signup;

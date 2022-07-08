@@ -1,24 +1,26 @@
-import './css/login.css'
-import React, {useContext, useState} from 'react'
+import './css/login.css';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 
 function Login() {
-    const {setUser} = useContext(AppContext)
-  
+    const {setUser} = useContext(AppContext);
+
+    let navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: "",
         password: ""
-    })
-    const [errors, setErrors] = useState([])
-    let navigate = useNavigate()
+    });
+
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (e) => {
         setFormData(prev => {
             return { ...prev, [e.target.name]: e.target.value }
         });
     };   
-    
+
     const handleSubmit = (e) => {
         e.preventDefault()
         let params = {
@@ -44,7 +46,7 @@ function Login() {
                     setErrors(json.errors)
                 })
             }
-        })
+        });
     };
 
     return (
@@ -62,7 +64,7 @@ function Login() {
                 <p><a href='/signup'>Forgot Password?</a></p>
             </form>
         </div>
-    )
+    );
 };
 
 export default Login;

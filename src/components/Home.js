@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 
 function Home() {
-  const {user, setUser} = useContext(AppContext)
+  const {user, setUser} = useContext(AppContext);
   const [oils, setOils] = useState([]);
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
 
   useEffect(() => {
@@ -14,11 +14,12 @@ function Home() {
     .then(data => {
       setOils(data)
     })
-  }, [])
+  }, []);
 
   const handleClick = () => {
     console.log(oils)
-  }
+  };
+
   if (user.id) {
     return (
       <div>
@@ -53,8 +54,7 @@ function Home() {
         </nav>
       </div>
     );
-  }
-  
-}
+  };
+};
 
-export default Home
+export default Home;
