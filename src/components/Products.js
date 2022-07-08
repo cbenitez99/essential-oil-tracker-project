@@ -9,7 +9,7 @@ function Products() {
   return (
     <div className='products-page'>
         Essential Oil Products
-        <li>{console.log(oils)}</li>
+        {oils.map((oil)=>(<li>{oil.name}, ${oil.price}</li>))}
     </div>
   );
 };
