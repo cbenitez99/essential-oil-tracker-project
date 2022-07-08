@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 
 function Home() {
-  const {setUser} = useContext(AppContext)
+  const {user, setUser} = useContext(AppContext)
   const [oils, setOils] = useState([]);
   let navigate = useNavigate()
 
@@ -21,7 +21,7 @@ function Home() {
   }
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Home: {user.username}</h1>
       <button onClick={handleClick}>Log Data</button>
       <nav>
         <Link to="/">Home</Link> |{" "}
