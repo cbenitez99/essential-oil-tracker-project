@@ -11,7 +11,7 @@ function Home() {
       <div>
         <h1>Welcome To Oil Tracker: <em>{user.username}</em></h1>
         <nav>
-          <Link to="profile">Profile</Link> |{" "}
+          <Link to={`/users/${user.id}`}>Profile</Link> |{" "}
           <Link to="/" onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {

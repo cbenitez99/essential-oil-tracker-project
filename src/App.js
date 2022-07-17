@@ -31,7 +31,7 @@ function App() {
         <Route index path="/" element={<Home />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/products" element={<Products />}/>
-        <Route path="/profile" element={<Profile />}/>
+        <Route path={`/users/${user.id}`} element={<Profile />}/>
         <Route path="/signup" element={<Signup />}/>
 
       </Routes>

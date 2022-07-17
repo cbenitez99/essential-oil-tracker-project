@@ -32,10 +32,9 @@ function Profile() {
     })
     .then(resp => {
         if(resp.ok){
-          setUserOil({...prev => userOil[prev.oils]})
-            alert(`Removed`)
+          navigate(`/users/${user.id}`)
         } else {
-            alert(`Oh no, something went wrong!`)
+          alert(`Oh no, something went wrong!`)
         }
     })
   };
