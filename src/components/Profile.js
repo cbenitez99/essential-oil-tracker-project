@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Profile() {
   const {user, oils} = useContext(AppContext);
   const [userOil, setUserOil] = useState([]);
+  const [errors, setErrors] = useState(" ")
 
   let navigate = useNavigate();
 
@@ -14,7 +15,7 @@ function Profile() {
     .then((resp) => (resp.json()))
     .then(userData => {
       console.log(userData)
-        // setUserOil(userData.oils)
+        // setUserOil(userData)
     })
 }, [user.id])
 
@@ -32,8 +33,11 @@ function Profile() {
     })
     .then(resp => {
         if(resp.ok){
-          navigate(`/users/${user.id}`)
+          setErrors("All good!")
+          console.log(errors)
+          navigate(`/`)
         } else {
+          setErrors("No bueno!")
           alert(`Oh no, something went wrong!`)
         }
     })
@@ -43,8 +47,8 @@ function Profile() {
   return (
     <div>
         <h1>Hello {user.username}</h1>
-        <h2>Add Products To Cart: {oils.map((oil)=><li key={oil.id}>{oil.name}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>)}</h2>
-      
+        <h2>Your Inventory (connected to public rn): {oils.map((oil)=><li key={oil.id}>{oil.name}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>)}</h2>
+        {errors ? <p style={{color : "red"}}>{errors}</p> : null}
         <button onClick={()=>{navigate("/")}}>Back</button>
     </div>
     
