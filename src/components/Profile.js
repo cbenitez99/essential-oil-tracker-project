@@ -42,7 +42,7 @@ function Profile() {
     <div>
         <h1>Hello {user.username}</h1>
         <h2>Your Inventory: {userOil.map((oil)=><li key={oil.id}>{oil.name}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>)}</h2>
-        {errors ? <p style={{color : "red"}}>{errors}</p> : null}
+        {errors ? <p style={{color : "black"}}>{errors}</p> : null}
         <button onClick={()=>{navigate("/")}}>Back</button>
     </div>
     
