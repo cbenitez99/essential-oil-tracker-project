@@ -11,21 +11,21 @@ export const AppContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState("");
-  const [oils, setOils] = useState([]);
+  const [product, setProduct] = useState([]);
 
 
   useEffect(() => {
-    fetch("/oils")
+    fetch("/products")
     .then(resp => resp.json())
     .then(data => {
-      setOils(data)
+      setProduct(data)
     })
   }, []);
 
   
   
   return (
-    <AppContext.Provider value={{user, setUser, oils}}>
+    <AppContext.Provider value={{user, setUser, product}}>
       <NavBar/>
       <Routes>
         <Route index path="/" element={<Home />}/>
