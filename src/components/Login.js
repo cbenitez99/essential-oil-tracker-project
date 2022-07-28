@@ -2,11 +2,11 @@ import './css/login.css';
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
-import useLocalStorage from './useLocalStorage';
+// import useLocalStorage from './useLocalStorage';
 
 function Login() {
 
-    let [value, setValue] = useLocalStorage('username', '');
+    // let [value, setValue] = useLocalStorage('name', '');
 
     const {setUser} = useContext(AppContext); 
 
@@ -17,13 +17,13 @@ function Login() {
         password: ""
     });
 
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState("");
 
     const handleChange = (e) => {
         setFormData(prev => {
             return { ...prev, [e.target.name]: e.target.value }
         });
-        setValue(e.target.value)
+        // setValue(e.target.value)
     };   
 
     const handleSubmit = (e) => {
@@ -48,7 +48,7 @@ function Login() {
             } else {
                 resp.json()
                 .then((json) => {
-                    setErrors(json.errors)
+                    setErrors("Check login information.")
                 })
             }
         });
@@ -64,7 +64,7 @@ function Login() {
                 <input onChange={handleChange} type="password" name="password" value={formData.password}/>
                 <button type="submit">Login</button>
                 <br/>
-                <p style={{color: "red"}}> {errors.join(", and ")}</p>
+                <p style={{color: "red"}}> {errors}</p>
                 <p>Dont have an account? <a href='/signup'>Sign-Up</a></p>
                 <p><a href='/signup'>Forgot Password?</a></p>
             </form>

@@ -45,7 +45,7 @@ function Products() {
   return (
     <div className='products-page'>
         Essential Oil Products:
-        {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} |{""}| Amount: {prod.amount}</li>))}
+        {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} <br/> {prod.image}</li>))}
         {/* {errors ? <p style={{color: "black"}}>{errors}</p> : null} */}
         <button onClick={()=>{navigate("/")}}>Back</button>
 
