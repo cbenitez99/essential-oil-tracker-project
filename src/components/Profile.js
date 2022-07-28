@@ -45,24 +45,20 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault()
     let params = {
-        name: oilName,
-        price: oilPrice,
-        amount: oilAmount,
-        user_id: user.id
+        
       }
     fetch("/user_oils", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
         },
-      body: JSON.stringify(params)
-      })
+      body: JSON.stringify({name: oilName,price: oilPrice,amount: oilAmount,user_id: user.id})
+    })
       .then(resp => {
         if(resp.ok){
           resp.json()
           .then((json) => {
             setErrors("Oil Added!")
-            // navigate(`/`)
           })
         } else {
           alert(`Oh no, something went wrong!`)
@@ -77,7 +73,7 @@ function Profile() {
   return (
     <div>
         <h1>Hello {user.username}</h1>
-        <h2>Your Inventory: {userOil.map((oil)=><li key={oil.id}>{oil.name}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>)}</h2>
+        <h2>Your Inventory:{userOil.map((oil)=>(<li key={oil.id}>{oil.name}, ${oil.price} {""} | qty: {oil.amount}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>))}</h2>
         {errors ? <p style={{color : "black"}}>{errors}</p> : null}
         <button onClick={()=>{navigate("/")}}>Back</button>
 
