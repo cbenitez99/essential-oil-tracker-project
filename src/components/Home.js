@@ -16,13 +16,10 @@ function Home() {
               e.preventDefault()
               fetch('/logout', {
                 method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json"
-                }
-                }).then(resp => {
-                  setUser({})
-                  navigate("/")
-                })
+                headers: {"Content-Type": "application/json"}
+              });
+              setUser({})
+              navigate("/")
               }}>Logout
           </Link>
         </nav>

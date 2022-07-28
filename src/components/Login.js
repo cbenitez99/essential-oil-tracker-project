@@ -2,11 +2,8 @@ import './css/login.css';
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
-// import useLocalStorage from './useLocalStorage';
 
 function Login() {
-
-    // let [value, setValue] = useLocalStorage('name', '');
 
     const {setUser} = useContext(AppContext); 
 
@@ -23,14 +20,13 @@ function Login() {
         setFormData(prev => {
             return { ...prev, [e.target.name]: e.target.value }
         });
-        // setValue(e.target.value)
     };   
 
     const handleSubmit = (e) => {
         e.preventDefault()
         let params = {
-          ...formData  
-        }
+            ...formData  
+          }
         fetch("/login", {
             method: "POST",
             headers: {
@@ -47,9 +43,7 @@ function Login() {
                 })
             } else {
                 resp.json()
-                .then((json) => {
-                    setErrors("Check login information.")
-                })
+                .then(json => setErrors(json.errors))
             }
         });
     };
