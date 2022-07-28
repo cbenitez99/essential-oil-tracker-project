@@ -6,8 +6,9 @@ import useLocalStorage from './useLocalStorage';
 
 function Login() {
 
-    let [value, setValue] = useLocalStorage('');
-    const {user, setUser} = useContext(AppContext); 
+    let [value, setValue] = useLocalStorage('username', '');
+
+    const {setUser} = useContext(AppContext); 
 
     let navigate = useNavigate();
 
@@ -22,6 +23,7 @@ function Login() {
         setFormData(prev => {
             return { ...prev, [e.target.name]: e.target.value }
         });
+        setValue(e.target.value)
     };   
 
     const handleSubmit = (e) => {
