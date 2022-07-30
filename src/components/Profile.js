@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const {user} = useContext(AppContext);
+  // const {id} = useParams();
   const [oilName, setOilName] = useState("");
   const [oilPrice, setOilPrice] = useState(null);
   const [oilAmount, setOilAmount] = useState(null);
-
-
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null)
 
@@ -20,7 +19,6 @@ function Profile() {
     .then((resp) => (resp.json()))
     .then(userData => {
       setUserOil(userData.user_oils)
-        // setUserOil(userData)
     })
 }, [user.id])
 
@@ -64,23 +62,31 @@ function Profile() {
 
   return (
     <div>
-        <h1>Hello {user.username}</h1>
-        <h2>Your Inventory:{userOil.map((oil)=>(<li key={oil.id}>{oil.name}, ${oil.price} {""} | qty: {oil.amount}<button onClick={()=>deleteOil(oil.id)}>Remove Oil</button></li>))}</h2>
-        {errors ? <p style={{color : "red"}}>{errors}</p> : null}
-        <button onClick={()=>{navigate("/")}}>Back</button>
+      <h1>Hello {user.username}</h1>
+      <div>Your Inventory:
+        {
+      userOil.map((oil)=>(
+        <p key={oil.id}>
+          {oil.name} {" "} | ${oil.price} {""} | Quantity: {oil.amount}
+          <br/>
+          <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
+        </p>))
+        }
+      </div>
+      {errors ? <p style={{color : "red"}}>{errors}</p> : null}
+      <button onClick={()=>{navigate("/")}}>Back</button>
+      <br/>
+      <h2>Add Oil</h2>
+      <form onSubmit={handleSubmit}>  
+        <input onChange={(e) => setOilName(e.target.value)} placeholder="Name"/><br/>
+        <input onChange={(e) => setOilPrice(e.target.value)} placeholder="Price"/>
         <br/>
-        <h2>Add Oil</h2>
-        <form onSubmit={handleSubmit}>  
-          <input onChange={(e) => setOilName(e.target.value)} placeholder="Name"/><br/>
-          <input onChange={(e) => setOilPrice(e.target.value)} placeholder="Price"/>
-          <br/>
-          <label>Amount</label>
-          <input onChange={(e) => setOilAmount(e.target.value)} min="0" max="999" type="number"/>
-          <br/>
-          <button onClick={handleSubmit}>Add</button>
-        </form>
+        <label>Amount</label>
+        <input onChange={(e) => setOilAmount(e.target.value)} min="0" max="999" type="number"/>
+        <br/>
+        <button onClick={handleSubmit}>Add</button>
+      </form>
     </div>
-    
   );
 };
 
