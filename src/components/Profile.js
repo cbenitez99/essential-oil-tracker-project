@@ -22,10 +22,10 @@ function Profile() {
     })
 }, [user.id])
 
-  const deleteOil = (id) => {
-    let removedOil = userOil.filter((oil) => oil.id !== id)
+  const deleteOil = (oil_id) => {
+    let removedOil = userOil.filter((oil) => oil.id !== oil_id)
     setUserOil(removedOil)
-    fetch(`/user_oils/${id}`, {
+    fetch(`/user_oils/${oil_id}`, {
       method: "DELETE",
       headers: {"Content-Type":"application/json"}
     })
@@ -60,18 +60,66 @@ function Profile() {
     });
   };
 
+  // const handleInc = (e) => {
+  //   e.preventDefault()
+  //   // let params = {amount: oilAmount + 1}
+  //   fetch(`/user_oils/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //       },
+  //     body: JSON.stringify({name: oilName, price: oilPrice, amount: oilAmount, user_id: user.id})
+  //   })
+  //     .then(resp => {
+  //       if(resp.ok){
+  //         setErrors(null)
+  //         console.log(resp)
+  //       } else {
+  //         resp.json()
+  //         .then((json) => {
+  //           setErrors(json.errors)
+  //       })
+  //     }
+  //   });
+  // };
+
+  // const handleDec = (e) => {
+  //   e.preventDefault()
+  //   let params = {amount: oilAmount - 1}
+  //   fetch(`/user_oils/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //       },
+  //     body: JSON.stringify(params)
+  //   })
+  //     .then(resp => {
+  //       if(resp.ok){
+  //         setErrors(null)
+  //         console.log(resp)
+  //       } else {
+  //         resp.json()
+  //         .then((json) => {
+  //           setErrors(json.errors)
+  //       })
+  //     }
+  //   });
+  // };
+
   return (
     <div>
       <h1>Hello {user.username}</h1>
-      <div>Your Inventory:
-        {
+      <div>Your Inventory:{
       userOil.map((oil)=>(
         <p key={oil.id}>
-          {oil.name} {" "} | ${oil.price} {""} | Quantity: {oil.amount}
+          {oil.name} {" "} | ${oil.price} {""} | Quantity: 
+          {/* <button onClick={handleInc}>+</button> */}
+          {oil.amount}
+          {/* <button onClick={handleDec}>-</button> */}
           <br/>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
-        </p>))
-        }
+          <br/>
+        </p>))}
       </div>
       {errors ? <p style={{color : "red"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/")}}>Back</button>
