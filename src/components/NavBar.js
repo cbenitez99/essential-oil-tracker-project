@@ -10,8 +10,8 @@ function NavBar() {
     return (
       <>
         <NavLink className="nav-bar" to="/">Home</NavLink> |{" "}
-        <NavLink className="nav-bar" to="/products">Products</NavLink> |{" "}      
-        <NavLink className="nav-bar" to={`/users/${user.id}`}>Profile</NavLink>
+        <NavLink className="nav-bar" to={`/users/${user.id}`}>Profile</NavLink> |{" "}  
+        <NavLink className="nav-bar" to="/products">Products</NavLink>     
       </>
     );
 

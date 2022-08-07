@@ -8,7 +8,7 @@ function Profile() {
   // const {id} = useParams();
   const [oilName, setOilName] = useState("");
   const [oilPrice, setOilPrice] = useState(null);
-  const [oilAmount, setOilAmount] = useState(null);
+  const [oilQuantity, setOilQuantity] = useState(null);
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
 
@@ -21,6 +21,54 @@ function Profile() {
       setUserOil(userData.user_oils);
     })
   }, [user.id]);
+
+  // const handleInc = (id) => {
+  //   // e.preventDefault()
+  //   let params = {amount: oilQuantity}
+  //   fetch(`/user_oils/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //       },
+  //     body: JSON.stringify(params)
+  //   })
+  //     .then(resp => {
+  //       if(resp.ok){
+  //         setOilQuantity(oilQuantity + 1)
+  //         setErrors(null)
+  //         console.log(resp)
+  //       } else {
+  //         resp.json()
+  //         .then((json) => {
+  //           setErrors(json.errors)
+  //       })
+  //     }
+  //   });
+  // };
+
+  // const handleDec = (id) => {
+  //   // e.preventDefault()
+  //   let params = {amount: oilQuantity}
+  //   fetch(`/user_oils/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //       },
+  //     body: JSON.stringify(params)
+  //   })
+  //     .then(resp => {
+  //       if(resp.ok){
+  //         setOilQuantity(oilQuantity - 1)
+  //         setErrors(null)
+  //         console.log(resp)
+  //       } else {
+  //         resp.json()
+  //         .then((json) => {
+  //           setErrors(json.errors)
+  //       })
+  //     }
+  //   });
+  // };
 
   const deleteOil = (oil_id) => {
     let removedOil = userOil.filter((oil) => oil.id !== oil_id);
@@ -38,7 +86,7 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let params = {name: oilName, price: oilPrice, amount: oilAmount, user_id: user.id};
+    let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
     fetch("/user_oils", {
       method: "POST",
       headers: {
@@ -60,52 +108,6 @@ function Profile() {
     });
   };
 
-  // const handleInc = (e) => {
-  //   e.preventDefault()
-  //   // let params = {amount: oilAmount + 1}
-  //   fetch(`/user_oils/${id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //       },
-  //     body: JSON.stringify({name: oilName, price: oilPrice, amount: oilAmount, user_id: user.id})
-  //   })
-  //     .then(resp => {
-  //       if(resp.ok){
-  //         setErrors(null)
-  //         console.log(resp)
-  //       } else {
-  //         resp.json()
-  //         .then((json) => {
-  //           setErrors(json.errors)
-  //       })
-  //     }
-  //   });
-  // };
-
-  // const handleDec = (e) => {
-  //   e.preventDefault()
-  //   let params = {amount: oilAmount - 1}
-  //   fetch(`/user_oils/${id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //       },
-  //     body: JSON.stringify(params)
-  //   })
-  //     .then(resp => {
-  //       if(resp.ok){
-  //         setErrors(null)
-  //         console.log(resp)
-  //       } else {
-  //         resp.json()
-  //         .then((json) => {
-  //           setErrors(json.errors)
-  //       })
-  //     }
-  //   });
-  // };
-
   return (
     <div>
       <h1>Hello {user.username}</h1>
@@ -113,9 +115,9 @@ function Profile() {
       userOil.map((oil)=>(
         <p key={oil.id}>
           {oil.name} {" "} | ${oil.price} {""} | Quantity: 
-          {/* <button onClick={handleInc}>+</button> */}
+          {/* <button onClick={()=> handleInc(oil.id)}>+</button> */}
           {oil.amount}
-          {/* <button onClick={handleDec}>-</button> */}
+          {/* <button onClick={()=>handleDec(oil.id)}>-</button> */}
           <br/>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
           <br/>
@@ -127,12 +129,12 @@ function Profile() {
       <h2>Add Oil</h2>
       <form onSubmit={handleSubmit}>  
         <input onChange={(e) => setOilName(e.target.value)} placeholder="Name"/><br/>
-        <input onChange={(e) => setOilPrice(e.target.value)} placeholder="Price"/>
+        <input onChange={(e) => setOilPrice(e.target.value)} type="number" min="0" placeholder="Price" />
         <br/>
-        <label>Amount</label>
-        <input onChange={(e) => setOilAmount(e.target.value)} min="0" max="999" type="number"/>
+        <label>Quantity</label>
+        <input onChange={(e) => setOilQuantity(e.target.value)} min="0" max="999" type="number"/>
         <br/>
-        <button onClick={handleSubmit}>Add</button>
+        <button onClick={()=>handleSubmit}>Add</button>
       </form>
     </div>
   );
