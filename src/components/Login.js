@@ -9,24 +9,17 @@ function Login() {
 
     let navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        username: "",
-        password: ""
-    });
+    const [formData, setFormData] = useState({username: "", password: ""});
 
     const [errors, setErrors] = useState("");
 
     const handleChange = (e) => {
-        setFormData(prev => {
-            return { ...prev, [e.target.name]: e.target.value }
-        });
+        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };   
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        let params = {
-            ...formData  
-          }
+        e.preventDefault();
+        let params = { ...formData };
         fetch("/login", {
             method: "POST",
             headers: {
@@ -38,12 +31,12 @@ function Login() {
             if(resp.ok){
                 resp.json()
                 .then((json) => {
-                    setUser(json)
-                    navigate(`/`)
+                    setUser(json);
+                    navigate(`/`);
                 })
             } else {
                 resp.json()
-                .then(json => setErrors(json.errors))
+                .then(json => setErrors(json.errors));
             }
         });
     };

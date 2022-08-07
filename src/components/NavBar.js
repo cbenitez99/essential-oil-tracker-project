@@ -4,7 +4,7 @@ import { AppContext } from '../App';
 import "./css/navbar.css";
 
 function NavBar() {
-  const {user} = useContext(AppContext)
+  const {user} = useContext(AppContext);
 
   if(user) {
     return (

@@ -10,7 +10,7 @@ function Profile() {
   const [oilPrice, setOilPrice] = useState(null);
   const [oilAmount, setOilAmount] = useState(null);
   const [userOil, setUserOil] = useState([]);
-  const [errors, setErrors] = useState(null)
+  const [errors, setErrors] = useState(null);
 
   let navigate = useNavigate();
 
@@ -18,27 +18,27 @@ function Profile() {
     fetch(`/users/${user.id}`)
     .then((resp) => (resp.json()))
     .then(userData => {
-      setUserOil(userData.user_oils)
+      setUserOil(userData.user_oils);
     })
-}, [user.id])
+  }, [user.id]);
 
   const deleteOil = (oil_id) => {
-    let removedOil = userOil.filter((oil) => oil.id !== oil_id)
-    setUserOil(removedOil)
+    let removedOil = userOil.filter((oil) => oil.id !== oil_id);
+    setUserOil(removedOil);
     fetch(`/user_oils/${oil_id}`, {
       method: "DELETE",
       headers: {"Content-Type":"application/json"}
     })
     .then(resp => {
         if(!resp.ok){
-          setErrors("Something went wrong.")
+          setErrors("Something went wrong.");
         }
     })
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    let params = {name: oilName, price: oilPrice, amount: oilAmount, user_id: user.id}
+    e.preventDefault();
+    let params = {name: oilName, price: oilPrice, amount: oilAmount, user_id: user.id};
     fetch("/user_oils", {
       method: "POST",
       headers: {
@@ -48,13 +48,13 @@ function Profile() {
     })
       .then(resp => {
         if(resp.ok){
-          setErrors(null)
-          alert("Product Added!")
-          navigate('/products')
+          setErrors(null);
+          alert("Product Added!");
+          navigate('/products');
         } else {
           resp.json()
           .then((json) => {
-            setErrors(json.errors)
+            setErrors(json.errors);
         })
       }
     });

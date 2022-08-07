@@ -4,7 +4,7 @@ import { AppContext } from '../App';
 import "./css/productpage.css";
 
 function Products() {
-    const {product} = useContext(AppContext)
+    const {product} = useContext(AppContext);
     let navigate = useNavigate();
 
   return (
