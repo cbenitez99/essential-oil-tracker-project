@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
+import "./css/home.css"
 
 function Home() {
   const {user, setUser} = useContext(AppContext);
@@ -8,7 +9,7 @@ function Home() {
 
   if (user.id) {
     return (
-      <div>
+      <div className='home-page'>
         <h1>Welcome To Oil Tracker: <em>{user.username}</em></h1>
         <nav>
           <Link to={`/users/${user.id}`}>Profile</Link> |{" "}
@@ -27,7 +28,7 @@ function Home() {
     );
   } else {
     return (
-      <div>
+      <div className='home-page'>
         <h1>Welcome To Oil Tracker</h1>
         <nav>
           <Link to="login">Login</Link> |{" "}

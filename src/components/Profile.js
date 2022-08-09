@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { useContext } from 'react';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import './css/profile.css'
 
 function Profile() {
   const {user} = useContext(AppContext);
-  // const {id} = useParams();
   const [oilName, setOilName] = useState("");
   const [oilPrice, setOilPrice] = useState(null);
   const [oilQuantity, setOilQuantity] = useState(null);
@@ -22,53 +22,50 @@ function Profile() {
     })
   }, [user.id]);
 
-  // const handleInc = (id) => {
-  //   // e.preventDefault()
-  //   let params = {amount: oilQuantity}
-  //   fetch(`/user_oils/${id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //       },
-  //     body: JSON.stringify(params)
-  //   })
-  //     .then(resp => {
-  //       if(resp.ok){
-  //         setOilQuantity(oilQuantity + 1)
-  //         setErrors(null)
-  //         console.log(resp)
-  //       } else {
-  //         resp.json()
-  //         .then((json) => {
-  //           setErrors(json.errors)
-  //       })
-  //     }
-  //   });
-  // };
+  const handleInc = (oil_id) => {
+    fetch(`/user_oils/${oil_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+        },
+      body: JSON.stringify({amount: oilQuantity + 1})
+    })
+      .then(resp => {
+        if(resp.ok){
+          // setOilQuantity(resp)
+          setErrors(null)
+          console.log(resp)
+        } else {
+          resp.json()
+          .then((json) => {
+            setErrors(json.errors)
+        })
+      }
+    });
+  };
 
-  // const handleDec = (id) => {
-  //   // e.preventDefault()
-  //   let params = {amount: oilQuantity}
-  //   fetch(`/user_oils/${id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //       },
-  //     body: JSON.stringify(params)
-  //   })
-  //     .then(resp => {
-  //       if(resp.ok){
-  //         setOilQuantity(oilQuantity - 1)
-  //         setErrors(null)
-  //         console.log(resp)
-  //       } else {
-  //         resp.json()
-  //         .then((json) => {
-  //           setErrors(json.errors)
-  //       })
-  //     }
-  //   });
-  // };
+  const handleDec = (oil_id) => {
+    fetch(`/user_oils/${oil_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+        },
+      body: JSON.stringify({amount: oilQuantity - 1})
+    })
+      .then(resp => {
+        if(resp.ok){
+          // setOilQuantity(resp)
+          setErrors(null)
+          console.log(resp)
+        } else {
+          resp.json()
+          .then((json) => {
+            setErrors(json.errors)
+        })
+      }
+    });
+  };
+
 
   const deleteOil = (oil_id) => {
     let removedOil = userOil.filter((oil) => oil.id !== oil_id);
@@ -109,15 +106,15 @@ function Profile() {
   };
 
   return (
-    <div>
+    <div className='profile-page'>
       <h1>Hello {user.username}</h1>
       <div>Your Inventory:{
       userOil.map((oil)=>(
         <p key={oil.id}>
           {oil.name} {" "} | ${oil.price} {""} | Quantity: 
-          {/* <button onClick={()=> handleInc(oil.id)}>+</button> */}
+          <button onClick={(() => handleInc(oil.id))}>+</button>
           {oil.amount}
-          {/* <button onClick={()=>handleDec(oil.id)}>-</button> */}
+          <button onClick={(() => handleDec(oil.id))}>-</button>
           <br/>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
           <br/>
