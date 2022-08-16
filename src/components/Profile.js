@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useContext } from 'react';
 import { AppContext } from '../App';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './css/profile.css'
 import AddOil from './AddOil';
 
@@ -9,7 +9,6 @@ function Profile() {
   const {user} = useContext(AppContext);
   const [oilName, setOilName] = useState("");
   const [oilPrice, setOilPrice] = useState(null);
-  const {id} = useParams();
   const [oilQuantity, setOilQuantity] = useState();
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
@@ -24,21 +23,27 @@ function Profile() {
     })
   }, [user.id]);
 
-  const handleInc = (amnt) => {
-    fetch(`/user_oils/${id}`,
-    {
-      method: "PATCH",  
-      headers: {"Content-type": "application/json"},  
+  const handleInc = (id, amnt) => {
+    fetch(`/user_oils/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+        },
       body: JSON.stringify({amount: amnt + 1})
-    }) 
-    .then(response => {
-      console.log(response.status);     
-      return response.json();  
-    })  
-    .then(data => console.log(data));
+    })
+      .then(resp => {
+        if(resp.ok){
+          setErrors(null)
+        } else {
+          resp.json()
+          .then((json) => {
+            setErrors(json.errors)
+        })
+      }
+    });
   };
 
-  const handleDec = (amnt) => {
+  const handleDec = (id, amnt) => {
     fetch(`/user_oils/${id}`, {
       method: "PATCH",
       headers: {
@@ -102,16 +107,16 @@ function Profile() {
       <h1>Hello {user.username}</h1>
       <div>Your Inventory:{
       userOil.map((oil)=>(
-        <p key={oil.id}>
+        <li key={oil.id}>
           {oil.name} {" "} | ${oil.price} {""} | Quantity: 
-          <button onClick={()=>handleInc(oil.id)}>+</button>
+          <button onClick={()=>handleInc(oil.id, oil.amount)}>+</button>
           {oil.amount}
-          <button onClick={()=>handleDec(oil.id)}>-</button>
+          <button onClick={()=>handleDec(oil.id, oil.amount)}>-</button>
 
           <br/>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
           <br/>
-        </p>))}
+        </li>))}
       </div>
       {errors ? <p style={{color : "red"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/")}}>Back</button>
