@@ -33,7 +33,6 @@ function App() {
         <Route path="/products" element={<Products />}/>
         <Route path={`/users/${user.id}`} element={<Profile />}/>
         <Route path="/signup" element={<Signup />}/>
-
       </Routes>
     </AppContext.Provider>
 

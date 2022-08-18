@@ -4,14 +4,17 @@ import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import './css/profile.css'
 import AddOil from './AddOil';
+import EditOil from './EditOil';
 
 function Profile() {
+
   const {user} = useContext(AppContext);
   const [oilName, setOilName] = useState("");
   const [oilPrice, setOilPrice] = useState(null);
   const [oilQuantity, setOilQuantity] = useState();
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   let navigate = useNavigate();
 
@@ -20,49 +23,9 @@ function Profile() {
     .then((resp) => (resp.json()))
     .then(userData => {
       setUserOil(userData.user_oils);
+      setEdit(false)
     })
   }, [user.id]);
-
-  const handleInc = (id, amnt) => {
-    fetch(`/user_oils/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-        },
-      body: JSON.stringify({amount: amnt + 1})
-    })
-      .then(resp => {
-        if(resp.ok){
-          setErrors(null)
-        } else {
-          resp.json()
-          .then((json) => {
-            setErrors(json.errors)
-        })
-      }
-    });
-  };
-
-  const handleDec = (id, amnt) => {
-    fetch(`/user_oils/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-        },
-      body: JSON.stringify({amount: amnt - 1})
-    })
-      .then(resp => {
-        if(resp.ok){
-          setErrors(null)
-        } else {
-          resp.json()
-          .then((json) => {
-            setErrors(json.errors)
-        })
-      }
-    });
-  };
-
 
   const deleteOil = (oil_id) => {
     let removedOil = userOil.filter((oil) => oil.id !== oil_id);
@@ -108,13 +71,11 @@ function Profile() {
       <div>Your Inventory:{
       userOil.map((oil)=>(
         <li key={oil.id}>
-          {oil.name} {" "} | ${oil.price} {""} | Quantity: 
-          <button onClick={()=>handleInc(oil.id, oil.amount)}>+</button>
-          {oil.amount}
-          <button onClick={()=>handleDec(oil.id, oil.amount)}>-</button>
-
+          {oil.name} {" "} | ${oil.price} {""} | Quantity: {oil.amount}
           <br/>
+          <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
+          {edit ? <EditOil setEdit={setEdit} id={oil.id}/> : null}
           <br/>
         </li>))}
       </div>
