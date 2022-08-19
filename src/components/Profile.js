@@ -44,42 +44,44 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
-    fetch("/user_oils", {
+    fetch("/user_oils",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-        },
+      },
       body: JSON.stringify(params)
     })
-      .then(resp => {
-        if(resp.ok){
-          setErrors(null);
-          alert("Product Added!");
-          navigate('/products');
-        } else {
-          resp.json()
-          .then((json) => {
-            setErrors(json.errors);
-        })
+    .then(resp => {
+      if(resp.ok){
+        setErrors(null);
+        alert("Product Added!");
+        navigate('/products');
+      } else {
+        resp.json()
+        .then((json) => {
+          setErrors(json.errors);
+        });
       }
     });
   };
 
+
   return (
     <div className='profile-page'>
       <h1>Hello {user.username}</h1>
-      <div>Your Inventory:{
+      <div><h1>Your Inventory:</h1>{
       userOil.map((oil)=>(
-        <li key={oil.id}>
-          {oil.name} {" "} | ${oil.price} {""} | Quantity: {oil.amount}
-          <br/>
+        <div key={oil.id}>
+          <h3>{oil.name} ${oil.price}</h3>
+          <h4>Quantity: {oil.amount}</h4>
           <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
           <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
-          {edit ? <EditOil setEdit={setEdit} id={oil.id}/> : null}
           <br/>
-        </li>))}
+          {edit ? <EditOil setEdit={setEdit} amount={oil.amount} id={oil.id}/> : null}
+        </div>))}
       </div>
       {errors ? <p style={{color : "red"}}>{errors}</p> : null}
+      <br/>
       <button onClick={()=>{navigate("/")}}>Back</button>
       <AddOil setOilName={setOilName} setOilQuantity={setOilQuantity} setOilPrice={setOilPrice} handleSubmit={handleSubmit}/>      
     </div>
