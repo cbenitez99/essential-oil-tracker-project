@@ -21,7 +21,7 @@ function EditOil({setEdit, id, amount}) {
         })
         .then(resp => {
           if(resp.ok){
-            setErrors("Amount Changed!")
+            alert("Amount Changed!")
         } else {
             resp.json()
             .then(json => setErrors(json.errors));
@@ -32,7 +32,7 @@ function EditOil({setEdit, id, amount}) {
     <div>
         <form onSubmit={handleSubmit}>
             <input onChange={(e) => setCounter(e.target.value)} min="0" type="number"/>
-            <button onClick={handleSubmit}>ok</button>
+            <button type='submit'>ok</button>
             <button onClick={() => {setEdit(false)}}>cancel</button>
             {errors ? <p>{errors}</p> : null}
         </form>
