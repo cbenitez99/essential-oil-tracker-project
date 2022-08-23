@@ -43,13 +43,13 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
+    // let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
     fetch("/user_oils",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(params)
+      body: JSON.stringify({name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id})
     })
     .then(resp => {
       if(resp.ok){
@@ -80,9 +80,9 @@ function Profile() {
           {edit ? <EditOil setEdit={setEdit} amount={oil.amount} id={oil.id}/> : null}
         </div>))}
       </div>
-      {errors ? <p style={{color : "red"}}>{errors}</p> : null}
+      {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <br/>
-      <button onClick={()=>{navigate("/")}}>Back</button>
+      <button onClick={()=>{navigate("/home")}}>Back</button>
       <AddOil setOilName={setOilName} setOilQuantity={setOilQuantity} setOilPrice={setOilPrice} handleSubmit={handleSubmit}/>      
     </div>
   );

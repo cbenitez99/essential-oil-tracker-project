@@ -10,16 +10,18 @@ function Login() {
     let navigate = useNavigate();
 
     const [formData, setFormData] = useState({username: "", password: ""});
+    const [loginData, setLoginData] = useState({username: "", password: ""});
 
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (e) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+        setLoginData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };   
 
-    const handleSubmit = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
-        let params = { ...formData };
+        let params = { ...loginData };
         fetch("/login", {
             method: "POST",
             headers: {
@@ -32,7 +34,31 @@ function Login() {
                 resp.json()
                 .then((json) => {
                     setUser(json);
-                    navigate(`/`);
+                    navigate(`/home`);
+                })
+            } else {
+                resp.json()
+                .then(json => setErrors(json.errors));
+            }
+        });
+    };
+
+    const handleSignup = (e) => {
+        e.preventDefault()
+        let params = { ...formData };
+        fetch("/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        })
+        .then(resp => {
+            if(resp.ok){
+                resp.json()
+                .then((json) => {
+                    setUser(json)
+                    navigate(`/home`)
                 })
             } else {
                 resp.json()
@@ -42,35 +68,22 @@ function Login() {
     };
 
     return (
-        // <div className=''>
-        // <h1>Login</h1>
-        //     <form onSubmit={handleSubmit}>
-        //         <label htmlFor="username">Username:</label>
-        //         <input onChange={handleChange} type="text" name="username" value={formData.username}/>
-        //         <label htmlFor="password">Password:</label>
-        //         <input onChange={handleChange} type="password" name="password" value={formData.password}/>
-        //         <button type="submit">Login</button>
-        //         <br/>
-        // <p style={{color: "red"}}> {errors}</p>
-        //         <p>Dont have an account? <a href='/signup'>Sign-Up</a></p>
-        //         <p><a href='/signup'>Forgot Password?</a></p>
-        //     </form>
-        // </div>
-        <div class="main">  	
+        <div className="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true"/>
-			<div class="signup">
-				<form>
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="username" placeholder="User name" value={formData.username}/>
-					<input type="password" name="password" placeholder="Password" value={formData.password}/>
+			<div className="signup">
+				<form onSubmit={handleSignup}>
+					<label htmlFor="chk" aria-hidden="true">Sign up</label>
+					<input onChange={handleChange} type="text" name="username" placeholder="Username" value={formData.username}/>
+					<input onChange={handleChange} type="password" name="password" placeholder="Password" value={formData.password}/>
 					<button>Sign up</button>
 				</form>
+                <p style={{color: "red"}}> {errors.join(", and ")}</p>
 			</div>
 
-			<div class="login">
-				<form onSubmit={handleSubmit}>
-					<label for="chk" aria-hidden="true">Login</label>
-                    <input onChange={handleChange} type="text" placeholder="User name" name="username" value={formData.username}/>
+			<div className="login">
+				<form onSubmit={handleLogin}>
+					<label htmlFor="chk" aria-hidden="true">Login</label>
+                    <input onChange={handleChange} type="text" placeholder="Username" name="username" value={formData.username}/>
 					<input onChange={handleChange} type="password" name="password" placeholder="Password" value={formData.password}/>
 					<button>Login</button>
 				</form>

@@ -9,7 +9,7 @@ function NavBar() {
   if(user) {
     return (
       <>
-        <NavLink className="nav-bar" to="/">Home</NavLink> |{" "}
+        <NavLink className="nav-bar" to="/home">Home</NavLink> |{" "}
         <NavLink className="nav-bar" to={`/users/${user.id}`}>Profile</NavLink> |{" "}  
         <NavLink className="nav-bar" to="/products">Products</NavLink>     
       </>
@@ -18,7 +18,6 @@ function NavBar() {
   } else {
     return ( 
       <>
-        <NavLink className="nav-bar" to="/">Home</NavLink> |{" "}
         <NavLink className="nav-bar" to="/products">Products</NavLink>
       </>
     )

@@ -12,8 +12,7 @@ function Home() {
       <div className='home-page'>
         <h1>Welcome To Oil Tracker: <em>{user.username}</em></h1>
         <nav>
-          <Link to={`/users/${user.id}`}>Profile</Link> |{" "}
-          <Link to="/" onClick={(e) => {
+          <Link to="/home" onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {
                 method: "DELETE",
@@ -31,8 +30,7 @@ function Home() {
       <div className='home-page'>
         <h1>Welcome To Oil Tracker</h1>
         <nav>
-          <Link to="login">Login</Link> |{" "}
-          <Link to="signup">Signup</Link> 
+          <Link exact path="/">Login/Signup</Link>
         </nav>
       </div>
     );

@@ -4,7 +4,7 @@ import {useState} from 'react'
 function EditOil({setEdit, id, amount}) {
 
     const [counter, setCounter] = useState();
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,27 +23,10 @@ function EditOil({setEdit, id, amount}) {
           if(resp.ok){
             setErrors("Amount Changed!")
         } else {
-            setErrors("Can't be blank!")
+            resp.json()
+            .then(json => setErrors(json.errors));
         }});
     };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     fetch(`/user_oils/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({amount: counter})
-    //     })
-    //     .then((resp)=>(resp.json()))
-    //     .then((data)=> {
-    //         setUserOils(data)
-    //         alert("Amount changed!")   
-    //     });
-    // };
-
-    
 
   return (
     <div>
