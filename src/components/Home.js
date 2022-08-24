@@ -30,7 +30,7 @@ function Home() {
       <div className='home-page'>
         <h1>Welcome To Oil Tracker</h1>
         <nav>
-          <Link exact path="/">Login/Signup</Link>
+          <Link exact path="/">Login or Signup</Link>
         </nav>
       </div>
     );

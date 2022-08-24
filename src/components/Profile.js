@@ -3,15 +3,14 @@ import { useContext } from 'react';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import './css/profile.css'
-import AddOil from './AddOil';
 import EditOil from './EditOil';
 
 function Profile() {
 
   const {user} = useContext(AppContext);
-  const [oilName, setOilName] = useState("");
-  const [oilPrice, setOilPrice] = useState(null);
-  const [oilQuantity, setOilQuantity] = useState();
+  // const [oilName, setOilName] = useState("");
+  // const [oilPrice, setOilPrice] = useState(null);
+  // const [oilQuantity, setOilQuantity] = useState();
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
   const [edit, setEdit] = useState(false);
@@ -41,29 +40,29 @@ function Profile() {
     })
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
-    fetch("/user_oils",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id})
-    })
-    .then(resp => {
-      if(resp.ok){
-        setErrors(null);
-        alert("Product Added!");
-        navigate('/products');
-      } else {
-        resp.json()
-        .then((json) => {
-          setErrors(json.errors);
-        });
-      }
-    });
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
+  //   fetch("/user_oils",{
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id})
+  //   })
+  //   .then(resp => {
+  //     if(resp.ok){
+  //       setErrors(null);
+  //       alert("Product Added!");
+  //       navigate('/products');
+  //     } else {
+  //       resp.json()
+  //       .then((json) => {
+  //         setErrors(json.errors);
+  //       });
+  //     }
+  //   });
+  // };
 
 
   return (
@@ -82,9 +81,7 @@ function Profile() {
       </div>
       {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <br/>
-      <div className='add-oil'>
-        <AddOil setOilName={setOilName} setOilQuantity={setOilQuantity} setOilPrice={setOilPrice} handleSubmit={handleSubmit}/>      
-      </div>
+      <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
       <button onClick={()=>{navigate("/home")}}>Back</button>
     </div>
   );
