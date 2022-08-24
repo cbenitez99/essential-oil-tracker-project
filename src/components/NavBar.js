@@ -8,18 +8,18 @@ function NavBar() {
 
   if(user) {
     return (
-      <>
-        <NavLink className="nav-bar" to="/home">Home</NavLink> |{" "}
-        <NavLink className="nav-bar" to={`/users/${user.id}`}>Profile</NavLink> |{" "}  
-        <NavLink className="nav-bar" to="/products">Products</NavLink>     
-      </>
+      <div className='nav-bar'>
+        <NavLink className="nav-links" to="/home">Home</NavLink> |{" "}
+        <NavLink className="nav-links" to={`/users/${user.id}`}>Profile</NavLink> |{" "}  
+        <NavLink className="nav-links" to="/products">Products</NavLink>     
+      </div>
     );
 
   } else {
     return ( 
-      <>
-        <NavLink className="nav-bar" to="/products">Products</NavLink>
-      </>
+      <div className='nav-bar'>
+        <NavLink className="nav-links" to="/products">Products</NavLink>
+      </div>
     )
   };
 };

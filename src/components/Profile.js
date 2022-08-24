@@ -82,8 +82,10 @@ function Profile() {
       </div>
       {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <br/>
+      <div className='add-oil'>
+        <AddOil setOilName={setOilName} setOilQuantity={setOilQuantity} setOilPrice={setOilPrice} handleSubmit={handleSubmit}/>      
+      </div>
       <button onClick={()=>{navigate("/home")}}>Back</button>
-      <AddOil setOilName={setOilName} setOilQuantity={setOilQuantity} setOilPrice={setOilPrice} handleSubmit={handleSubmit}/>      
     </div>
   );
 };
