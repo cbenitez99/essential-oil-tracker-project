@@ -1,8 +1,9 @@
 import React from 'react'
+import './css/oilAdd.css'
 
 function AddOil({setOilName, setOilPrice, setOilQuantity, handleSubmit}) {
   return (
-    <div>
+    <div className='add-oil'>
         <h2>New Oil</h2>
         <form onSubmit={handleSubmit}>  
             <input onChange={(e) => setOilName(e.target.value)} placeholder="Name"/><br/>
