@@ -8,9 +8,6 @@ import EditOil from './EditOil';
 function Profile() {
 
   const {user} = useContext(AppContext);
-  // const [oilName, setOilName] = useState("");
-  // const [oilPrice, setOilPrice] = useState(null);
-  // const [oilQuantity, setOilQuantity] = useState();
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
   const [edit, setEdit] = useState(false);
@@ -40,31 +37,6 @@ function Profile() {
     })
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
-  //   fetch("/user_oils",{
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id})
-  //   })
-  //   .then(resp => {
-  //     if(resp.ok){
-  //       setErrors(null);
-  //       alert("Product Added!");
-  //       navigate('/products');
-  //     } else {
-  //       resp.json()
-  //       .then((json) => {
-  //         setErrors(json.errors);
-  //       });
-  //     }
-  //   });
-  // };
-
-
   return (
     <div className='profile-page'>
       <div> 
@@ -73,15 +45,15 @@ function Profile() {
         <div key={oil.id}>
           <h3>{oil.name} ${oil.price}</h3>
           <h4>Quantity: {oil.amount}</h4>
-          <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
+          <button onClick={navigate(`/edit_oil/${oil.id}`)}>Edit Amount</button>
           {edit ? <EditOil setEdit={setEdit} amount={oil.amount} id={oil.id}/> : null}
-          <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
+          <button style={{color: 'RED' }} onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
           <br/>
         </div>))}
       </div>
       {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <br/>
-      <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
+      <button style={{color: "greenyellow" }} onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
       <button onClick={()=>{navigate("/home")}}>Back</button>
     </div>
   );

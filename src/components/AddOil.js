@@ -15,8 +15,8 @@ function AddOil() {
             <input onChange={(e) => setOilPrice(e.target.value)} type="number" placeholder="Price" />
             <input onChange={(e) => setOilQuantity(e.target.value)} placeholder="Quantity" type="number"/>
             <p>{errors}</p>
-            <button onClick={()=>handleSubmit}>Add</button>
-            <button onClick={()=>navigate(`/users/${user.id}`)}>Back</button>
+            <button onClick={handleSubmit}>Add</button>
+            <button onClick={()=>navigate(`/users/${user.id}`)}>Cancel</button>
 
         </form>
     </div>
