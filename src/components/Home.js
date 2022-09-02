@@ -7,21 +7,21 @@ function Home() {
   const {user, setUser} = useContext(AppContext);
   let navigate = useNavigate();
 
-  if (user.id) {
+  if (user) {
     return (
       <div className='home-page'>
-        <h1>Welcome To Oil Tracker: <em>{user.username}</em></h1>
+        <h1>Welcome {user.username}!</h1>
         <nav>
-          <Link to="/home" onClick={(e) => {
+          <button onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json"}
               });
-              setUser({})
+              setUser("")
               navigate("/")
               }}>Logout
-          </Link>
+          </button>
         </nav>
       </div>
     );

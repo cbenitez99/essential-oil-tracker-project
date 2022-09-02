@@ -1,7 +1,7 @@
 import {useState} from 'react'
 
 
-function EditOil({id, amount}) {
+function EditOil({setEdit, id, amount}) {
 
     const [counter, setCounter] = useState();
     const [errors, setErrors] = useState([]);
@@ -33,7 +33,7 @@ function EditOil({id, amount}) {
         <form onSubmit={handleSubmit}>
             <input onChange={(e) => setCounter(e.target.value)} min="0" type="number"/>
             <button type='submit'>ok</button>
-            {/* <button onClick={() => {setEdit(false)}}>cancel</button> */}
+            <button onClick={() => {setEdit(false)}}>cancel</button>
             {errors ? <p>{errors}</p> : null}
         </form>
     </div>
