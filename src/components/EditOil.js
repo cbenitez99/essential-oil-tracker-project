@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState} from 'react';
 
 
 function EditOil({setEdit, id, amount}) {
@@ -29,7 +29,7 @@ function EditOil({setEdit, id, amount}) {
     };
 
   return (
-    <div>
+    <div className='edit-oil-div'>
         <form onSubmit={handleSubmit}>
             <input onChange={(e) => setCounter(e.target.value)} min="0" type="number"/>
             <button type='submit'>ok</button>
@@ -37,7 +37,7 @@ function EditOil({setEdit, id, amount}) {
             {errors ? <p>{errors}</p> : null}
         </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditOil
+export default EditOil;

@@ -3,9 +3,8 @@ import {Routes, Route, useNavigate} from "react-router-dom"
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import React, {useEffect, useState, createContext} from "react";
-import NavBar from "./components/NavBar";
+// import NavBar from "./components/NavBar";
 import Products from "./components/Products";
-import './App.css';
 import AddOil from "./components/AddOil";
 export const AppContext = createContext(null);
 
@@ -55,7 +54,6 @@ function App() {
   
   return (
     <AppContext.Provider value={{user, setUser, product, errors, setOilName, setOilPrice, setOilQuantity, handleSubmit}}>
-      <NavBar/>
       <Routes>
         <Route index path="/" element={<Login />}/>
         <Route path="/home" element={<Home />}/>
@@ -64,7 +62,6 @@ function App() {
         <Route path={`/users/${user.id}`} element={<Profile />}/>
       </Routes>
     </AppContext.Provider>
-
   );
 }
 export default App;

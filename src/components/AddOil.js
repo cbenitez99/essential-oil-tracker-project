@@ -1,4 +1,4 @@
-import './css/oilAdd.css'
+import './css/oilAdd.css';
 import React, { useContext } from 'react';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ function AddOil() {
   let navigate = useNavigate();
   const {user, setOilName, setOilPrice, setOilQuantity, handleSubmit, errors} = useContext(AppContext);
   return (
-    <div className='add-oil'>
+    <div className='add-oil-div'>
         <h2>New Oil</h2>
         <form onSubmit={handleSubmit}>  
             <input onChange={(e) => setOilName(e.target.value)} placeholder="Name"/>
@@ -17,10 +17,9 @@ function AddOil() {
             <p>{errors}</p>
             <button onClick={handleSubmit}>Add</button>
             <button onClick={()=>navigate(`/users/${user.id}`)}>Cancel</button>
-
         </form>
     </div>
   )
 }
 
-export default AddOil
+export default AddOil;

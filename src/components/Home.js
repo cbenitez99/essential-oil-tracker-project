@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
-import "./css/home.css"
+import "./css/home.css";
 
 function Home() {
   const {user, setUser} = useContext(AppContext);
@@ -9,9 +9,8 @@ function Home() {
 
   if (user) {
     return (
-      <div className='home-page'>
+      <div className='home-page-div'>
         <h1>Welcome {user.username}!</h1>
-        <nav>
           <button onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {
@@ -22,12 +21,14 @@ function Home() {
               navigate("/")
               }}>Logout
           </button>
-        </nav>
+          <button onClick={()=>navigate(`/users/${user.id}`)}>Profile</button>
+          <button onClick={()=>navigate(`/products`)}>All Products</button>
+
       </div>
     );
   } else {
     return (
-      <div className='home-page'>
+      <div className='home-page-div'>
         <h1>Welcome To Oil Tracker</h1>
         <nav>
           <Link exact path="/">Login or Signup</Link>

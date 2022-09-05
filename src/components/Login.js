@@ -1,4 +1,4 @@
-import './css/login.css';
+import './css/menu.css';
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
@@ -68,7 +68,7 @@ function Login() {
     };
 
     return (
-        <div className="main">  	
+        <div className="main-menu">  	
 		<input type="checkbox" id="chk" aria-hidden="true"/>
 			<div className="signup">
 				<form onSubmit={handleSignup}>

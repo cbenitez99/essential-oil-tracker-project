@@ -8,7 +8,7 @@ function Products() {
     let navigate = useNavigate();
   if(user){
     return (
-      <div className='products-page'>
+      <div className='products-page-div'>
         Global Essential Oil Products:
         {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} <br/> {prod.image}</li>))}
         <button onClick={()=>{navigate("/home")}}>Back</button>
@@ -16,7 +16,7 @@ function Products() {
     )
   } else {
     return (
-      <div className='products-page'>
+      <div className='products-page-div'>
         Global Essential Oil Products:
         {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} <br/> {prod.image}</li>))}
         <button onClick={()=>{navigate("/")}}>Back To Login</button>
