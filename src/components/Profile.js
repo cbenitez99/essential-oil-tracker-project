@@ -63,19 +63,19 @@ function Profile() {
   //     }
   //   });
   // };
+  let oilCard =  userOil.map((oil)=>(
+    <div className='oil-card' key={oil.id}>
+      <h3>{oil.name} ${oil.price}</h3>
+      <h4>Quantity: {oil.amount}</h4>
+      <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
+      <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
+    </div>));
 
 
   return (
     <div className='profile-page-div'> 
-      <h1>Hello {user.username}Your Inventory:</h1> { 
-        userOil.map((oil)=>(
-        <div key={oil.id}>
-          <h3>{oil.name} ${oil.price}</h3>
-          <h4>Quantity: {oil.amount}</h4>
-          <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
-          {edit ? <EditOil setEdit={setEdit} amount={oil.amount} id={oil.id}/> : null}
-          <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
-        </div>))}
+      <h1>Hello {user.username}Your Inventory:</h1> 
+        <div>{oilCard}</div>
         {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
       <button onClick={()=>{navigate("/home")}}>Back</button>
