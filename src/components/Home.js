@@ -11,6 +11,8 @@ function Home() {
     return (
       <div className='home-page-div'>
         <h1>Welcome {user.username}!</h1>
+          <button onClick={()=>navigate(`/products`)}>All Products</button>
+          <button onClick={()=>navigate(`/users/${user.id}`)}>Profile</button>
           <button onClick={(e) => {
               e.preventDefault()
               fetch('/logout', {
@@ -19,11 +21,8 @@ function Home() {
               });
               setUser("")
               navigate("/")
-              }}>Logout
+            }}>Logout
           </button>
-          <button onClick={()=>navigate(`/users/${user.id}`)}>Profile</button>
-          <button onClick={()=>navigate(`/products`)}>All Products</button>
-
       </div>
     );
   } else {

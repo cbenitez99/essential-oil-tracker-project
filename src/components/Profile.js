@@ -70,7 +70,7 @@ function Profile() {
       <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
       <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
     </div>));
-
+  ///use this card
 
   return (
     <div className='profile-page-div'> 
