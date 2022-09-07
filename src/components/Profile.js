@@ -3,17 +3,13 @@ import { useContext } from 'react';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import './css/profile.css'
-import EditOil from './EditOil';
+import OilCard from './OilCard';
 
 function Profile() {
 
   const {user} = useContext(AppContext);
-  // const [oilName, setOilName] = useState("");
-  // const [oilPrice, setOilPrice] = useState(null);
-  // const [oilQuantity, setOilQuantity] = useState();
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
-  const [edit, setEdit] = useState(false);
 
   let navigate = useNavigate();
 
@@ -22,7 +18,6 @@ function Profile() {
     .then((resp) => (resp.json()))
     .then(userData => {
       setUserOil(userData.user_oils);
-      setEdit(false)
     })
   }, [user.id]);
 
@@ -40,43 +35,11 @@ function Profile() {
     })
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // let params = {name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id};
-  //   fetch("/user_oils",{
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({name: oilName, price: oilPrice, amount: oilQuantity, user_id: user.id})
-  //   })
-  //   .then(resp => {
-  //     if(resp.ok){
-  //       setErrors(null);
-  //       alert("Product Added!");
-  //       navigate('/products');
-  //     } else {
-  //       resp.json()
-  //       .then((json) => {
-  //         setErrors(json.errors);
-  //       });
-  //     }
-  //   });
-  // };
-  let oilCard =  userOil.map((oil)=>(
-    <div className='oil-card' key={oil.id}>
-      <h3>{oil.name} ${oil.price}</h3>
-      <h4>Quantity: {oil.amount}</h4>
-      <button onClick={()=>{setEdit(true)}}>Edit Amount</button>
-      <button onClick={()=>deleteOil(oil.id)}>Remove Oil</button>
-    </div>));
-  ///use this card
-
   return (
     <div className='profile-page-div'> 
-      <h1>Hello {user.username}Your Inventory:</h1> 
-        <div>{oilCard}</div>
-        {errors ? <p style={{color : "black"}}>{errors}</p> : null}
+      <h1>{user.username}'s Oil Inventory:</h1> 
+      <OilCard userOil={userOil} deleteOil={deleteOil}/>
+      {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
       <button onClick={()=>{navigate("/home")}}>Back</button>
     </div>

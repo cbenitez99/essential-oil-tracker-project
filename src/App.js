@@ -6,6 +6,7 @@ import React, {useEffect, useState, createContext} from "react";
 // import NavBar from "./components/NavBar";
 import Products from "./components/Products";
 import AddOil from "./components/AddOil";
+import EditOil from "./components/EditOil";
 export const AppContext = createContext(null);
 
 
@@ -50,14 +51,13 @@ function App() {
     });
   };
 
-  
-  
   return (
     <AppContext.Provider value={{user, setUser, product, errors, setOilName, setOilPrice, setOilQuantity, handleSubmit}}>
       <Routes>
         <Route index path="/" element={<Login />}/>
         <Route path="/home" element={<Home />}/>
         <Route path="/products" element={<Products />}/>
+        <Route path="/edit_oil/:oil_id" element={<EditOil/>}/>
         <Route path="/add_oil" element={<AddOil/>}/>
         <Route path={`/users/${user.id}`} element={<Profile />}/>
       </Routes>
