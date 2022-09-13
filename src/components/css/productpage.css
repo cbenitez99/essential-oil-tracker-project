@@ -1,4 +1,8 @@
 .products-page-div {
-    background-color: pink;
-    max-width: 500px;
+    background-color:purple;
+    text-align: center;
+    min-width: 350px;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
 }

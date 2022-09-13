@@ -3,8 +3,13 @@
 }
 
 .oil-card {
-    background-color: red;
     margin: 10px;
     display: inline-block;
     flex-wrap: nowrap;
+    background-color:purple;
+    text-align: center;
+    min-width: 350px;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
 }

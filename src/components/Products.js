@@ -10,6 +10,7 @@ function Products() {
     return (
       <div className='products-page-div'>
         Global Essential Oil Products:
+        <br/><br/>
         {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} <br/> {prod.image}</li>))}
         <button onClick={()=>{navigate("/home")}}>Back</button>
       </div>
@@ -18,6 +19,7 @@ function Products() {
     return (
       <div className='products-page-div'>
         Global Essential Oil Products:
+        <br/><br/>
         {product.map((prod)=>(<li style={{color : "mistyrose"}} key={prod.id}>{prod.name}, ${prod.price} <br/> {prod.image}</li>))}
         <button onClick={()=>{navigate("/")}}>Back To Login</button>
       </div>

@@ -10,7 +10,6 @@ function Profile() {
   const {user} = useContext(AppContext);
   const [userOil, setUserOil] = useState([]);
   const [errors, setErrors] = useState(null);
-
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -34,10 +33,10 @@ function Profile() {
         }
     })
   };
-
+  
   return (
     <div className='profile-page-div'> 
-      <h1>{user.username}'s Oil Inventory:</h1> 
+      <h1>{user.username}'s Oil Inventory, Total Stock Price: ${/*globalPrice*/}</h1> 
       <OilCard userOil={userOil} deleteOil={deleteOil}/>
       {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>

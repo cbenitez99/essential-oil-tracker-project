@@ -17,6 +17,7 @@ function AddOil() {
             <p>{errors}</p>
             <button onClick={handleSubmit}>Add</button>
             <button onClick={()=>navigate(`/users/${user.id}`)}>Cancel</button>
+            <br/>
         </form>
     </div>
   )
