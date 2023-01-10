@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './css/profile.css'
 import OilCard from './OilCard';
 
-function Profile() {
+function Profile({stockPrice, setStockPrice}) {
 
   const {user} = useContext(AppContext);
   const [userOil, setUserOil] = useState([]);
@@ -36,8 +36,8 @@ function Profile() {
   
   return (
     <div className='profile-page-div'> 
-      <h1>{user.username}'s Oil Inventory, Total Stock Price: ${/*globalPrice*/}</h1> 
-      <OilCard userOil={userOil} deleteOil={deleteOil}/>
+      <h1>{user.username}'s Oil Inventory, Total Stock Price: ${stockPrice}</h1> 
+      <OilCard setTotalPrice={setStockPrice} userOil={userOil} deleteOil={deleteOil}/>
       {errors ? <p style={{color : "black"}}>{errors}</p> : null}
       <button onClick={()=>{navigate("/add_oil")}}>Add New Oil</button>
       <button onClick={()=>{navigate("/home")}}>Back</button>

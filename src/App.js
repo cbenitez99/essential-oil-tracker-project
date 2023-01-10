@@ -17,6 +17,7 @@ function App() {
   const [oilPrice, setOilPrice] = useState(null);
   const [oilQuantity, setOilQuantity] = useState();
   const [errors, setErrors] = useState(null);
+  const [totalStockPrice, setTotalStockPrice] = useState(0);
   let navigate = useNavigate();
 
 
@@ -59,7 +60,7 @@ function App() {
         <Route path="/products" element={<Products />}/>
         <Route path="/edit_oil/:oil_id" element={<EditOil/>}/>
         <Route path="/add_oil" element={<AddOil/>}/>
-        <Route path={`/users/${user.id}`} element={<Profile />}/>
+        <Route path={`/users/${user.id}`} element={<Profile setStockPrice={setTotalStockPrice} stockPrice={totalStockPrice}/>}/>
       </Routes>
     </AppContext.Provider>
   );

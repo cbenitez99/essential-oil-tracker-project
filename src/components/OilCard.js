@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function OilCard({userOil, deleteOil }) {
+function OilCard({userOil, deleteOil, setTotalPrice}) {
  let navigate = useNavigate();
   return (
     <div>
